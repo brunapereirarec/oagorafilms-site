@@ -4,36 +4,45 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Dashboard — Modernizze</title>
+<link rel="icon" type="image/png" href="assets/icon-orange.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  @font-face {
+    font-family: 'Benzin';
+    src: local('Benzin');
+    font-weight: 400 900;
+    font-style: normal;
+  }
+
   :root {
-    --bg:        #f4ede1;
-    --card:      #fffdf9;
-    --card-2:    #f8f1e5;
-    --brown:     #6b4226;
-    --brown-dk:  #4a2c17;
-    --brown-lt:  #a97c50;
-    --beige:     #e9dcc4;
-    --border:    #e4d5bb;
-    --text:      #2e2013;
-    --text-mut:  #8a7561;
+    --bg:        #f4f4f4;
+    --card:      #ffffff;
+    --card-2:    #fbf6f1;
+    --brown:     #ff5500;
+    --brown-dk:  #0c0c0c;
+    --brown-lt:  #ff7733;
+    --orange-dk: #d84600;
+    --beige:     #ffe6d9;
+    --border:    rgba(12,12,12,.1);
+    --text:      #0c0c0c;
+    --text-mut:  rgba(12,12,12,.55);
     --danger:    #b3492f;
     --ok:        #5f7a4a;
     --amber-bg:  #f6e6c8;
     --amber-tx:  #8a5a13;
-    --gray-bg:   #ece7de;
-    --gray-tx:   #8a7561;
+    --gray-bg:   #ececec;
+    --gray-tx:   #6b6b6b;
   }
 
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Sora', sans-serif;
     font-size: 15px;
     line-height: 1.5;
     min-height: 100vh;
@@ -63,7 +72,10 @@
     color: var(--brown-dk);
     letter-spacing: -.5px;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
   }
+  .brand img { height: 22px; display: block; }
   .brand span { color: var(--brown-lt); }
 
   .tabs {
@@ -136,7 +148,7 @@
     margin-bottom: 10px;
   }
   .kpi-label svg { width: 14px; height: 14px; }
-  .kpi-value { font-size: 1.9rem; font-weight: 800; color: var(--text); }
+  .kpi-value { font-family: 'Benzin', 'Sora', sans-serif; font-size: 1.9rem; font-weight: 800; color: var(--text); }
   .kpi-sub {
     display: flex; justify-content: space-between; margin-top: 12px;
     font-size: .7rem; color: var(--text-mut); text-transform: uppercase; letter-spacing: .5px;
@@ -153,7 +165,7 @@
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
   }
-  .greet-row h1 { font-size: 1.5rem; font-weight: 800; }
+  .greet-row h1 { font-family: 'Benzin', 'Sora', sans-serif; font-size: 1.5rem; font-weight: 800; }
   .greet-row p { color: var(--text-mut); font-size: .88rem; margin-top: 2px; }
   .date-badge {
     background: var(--beige); color: var(--brown-dk);
@@ -170,11 +182,11 @@
   .metric-top { display: flex; justify-content: space-between; align-items: flex-start; color: var(--brown-lt); }
   .metric-top svg { width: 18px; height: 18px; }
   .metric-title { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--text-mut); }
-  .metric-num { font-size: 1.8rem; font-weight: 800; margin-top: 8px; }
+  .metric-num { font-family: 'Benzin', 'Sora', sans-serif; font-size: 1.8rem; font-weight: 800; margin-top: 8px; }
   .metric-foot { font-size: .78rem; color: var(--text-mut); margin-top: 4px; }
 
   .section-head { margin: 28px 0 14px; }
-  .section-head h2 { font-size: 1.3rem; font-weight: 800; }
+  .section-head h2 { font-family: 'Benzin', 'Sora', sans-serif; font-size: 1.3rem; font-weight: 800; }
   .section-head p { color: var(--text-mut); font-size: .84rem; margin-top: 2px; }
 
   .row-between { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
@@ -192,7 +204,7 @@
     align-items: center; gap: 6px; transition: background .15s;
   }
   .btn svg { width: 15px; height: 15px; }
-  .btn:hover { background: var(--brown-dk); }
+  .btn:hover { background: var(--orange-dk); }
   .btn-ghost {
     background: var(--card-2); color: var(--brown-dk); border: 1px solid var(--border);
     padding: 9px 16px; border-radius: 9px; font-size: .8rem; font-weight: 600;
@@ -248,7 +260,7 @@
   }
   .modal-lg { max-width: 660px; }
   .modal-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-  .modal h3 { font-size: 1.15rem; font-weight: 800; }
+  .modal h3 { font-family: 'Benzin', 'Sora', sans-serif; font-size: 1.15rem; font-weight: 800; }
   .modal .modal-sub { color: var(--text-mut); font-size: .82rem; margin-top: 4px; margin-bottom: 18px; }
   .modal-close { background: none; border: none; color: var(--text-mut); padding: 4px; border-radius: 6px; flex: 0 0 auto; }
   .modal-close svg { width: 18px; height: 18px; }
@@ -304,7 +316,7 @@
 <body>
 
 <header class="topnav">
-  <a href="index.html" class="brand">Modernizze<span>.</span></a>
+  <a href="index.html" class="brand"><img src="assets/logo-black.png" alt="Modernizze" /></a>
   <nav class="tabs" id="tabs">
     <button class="tab-btn active" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h5v-6h2v6h5V10"/></svg>Home</button>
     <button class="tab-btn" data-tab="eventos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="3" height="3" rx=".5"/><line x1="10" y1="6" x2="20" y2="6"/><rect x="4" y="10.5" width="3" height="3" rx=".5"/><line x1="10" y1="12" x2="20" y2="12"/><rect x="4" y="16.5" width="3" height="3" rx=".5"/><line x1="10" y1="18" x2="20" y2="18"/></svg>Eventos</button>
@@ -1558,7 +1570,6 @@ function saveConfig() {
     telefone: document.getElementById('cfgTelefone').value.trim()
   };
   save();
-  document.querySelector('.brand').innerHTML = escapeHtml(DATA.company.nome || 'Modernizze') + '<span>.</span>';
   toast('Dados salvos.');
 }
 
