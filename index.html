@@ -419,6 +419,36 @@
     .port-item:hover { border-color: var(--orange); color: var(--text-mut); background: var(--card-2); }
     .port-item .port-icon { font-size: 1.9rem; opacity: .55; }
 
+    /* Card com vídeo real (thumbnail de fundo) */
+    .port-item.filled {
+      border-style: solid;
+      border-color: var(--border);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      color: #fff;
+      text-decoration: none;
+      overflow: hidden;
+    }
+    .port-item.filled::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(12,12,12,.75) 0%, rgba(12,12,12,.05) 55%);
+      transition: background .3s;
+    }
+    .port-item.filled:hover { border-color: var(--orange); }
+    .port-item.filled:hover::before { background: linear-gradient(to top, rgba(255,85,0,.75) 0%, rgba(12,12,12,.1) 55%); }
+    .port-item.filled .port-icon { position: relative; z-index: 2; opacity: 1; }
+    .port-item.filled .port-title {
+      position: absolute;
+      left: 18px; right: 18px; bottom: 16px;
+      z-index: 2;
+      font-weight: 700;
+      font-size: .85rem;
+      text-align: left;
+    }
+
     /* ───────────────── ORÇAMENTO ───────────────── */
     #orcamento {
       background: var(--orange);
@@ -669,6 +699,29 @@
     <div class="inner">
       <span class="tag">Portfólio</span>
       <h2 class="section-title">Nossos trabalhos.</h2>
+
+      <!--
+        ══════════════════════════════════════════════════════════════════
+        COMO TROCAR UM CARD "EM BREVE" POR UM VÍDEO REAL (direto pelo GitHub):
+
+        1. Suba o vídeo no YouTube (pode ser "Não listado", não precisa ser público)
+           ou no Vimeo — não suba o arquivo de vídeo aqui no repositório.
+        2. Pegue o ID do vídeo na URL. Ex: youtube.com/watch?v=ABC123XYZ → o ID é "ABC123XYZ"
+        3. Apague UM dos <div class="port-item">...</div> abaixo e cole no lugar:
+
+           <a class="port-item filled" target="_blank" rel="noopener"
+              href="https://www.youtube.com/watch?v=ABC123XYZ"
+              style="background-image:url('https://img.youtube.com/vi/ABC123XYZ/hqdefault.jpg')">
+             <div class="port-icon">▶</div>
+             <span class="port-title">Nome do projeto</span>
+           </a>
+
+        4. Troque "ABC123XYZ" (nas duas linhas) pelo ID real do seu vídeo,
+           e "Nome do projeto" pelo título que quiser mostrar.
+        5. Se o vídeo estiver no Vimeo em vez de YouTube: use o link do vídeo no href,
+           e para a miniatura (thumbnail), suba uma imagem em assets/ e use o link dela.
+        ══════════════════════════════════════════════════════════════════
+      -->
       <div class="port-grid">
         <div class="port-item"><div class="port-icon">▶</div>Em breve</div>
         <div class="port-item"><div class="port-icon">▶</div>Em breve</div>
