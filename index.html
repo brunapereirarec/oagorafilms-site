@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modernizze — Produtora Audiovisual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --off-white: #f4f4f4;
+      --orange:    #ff5500;
+      --orange-lt: #ff7733;
+      --black:     #0c0c0c;
+      --black-2:   #111111;
+      --black-3:   #1a1a1a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* Benzin carregada via @font-face quando o arquivo estiver disponível */
+    @font-face {
+      font-family: 'Benzin';
+      src: local('Benzin');
+      font-weight: 400 900;
+      font-style: normal;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--off-white);
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ───────────────── NAV ───────────────── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      padding: 20px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(12,12,12,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+    .logo {
+      font-family: 'Benzin', 'Sora', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--off-white);
+      text-decoration: none;
+    }
+    .logo span { color: var(--orange); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: var(--black);
+      padding: 11px 26px;
+      border-radius: 50px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      transition: transform .2s, background .2s;
+    }
+    .nav-cta:hover { transform: scale(1.06); background: var(--orange-lt); }
+
+    /* ───────────────── SPINNING BADGE ───────────────── */
+    .badge-wrap {
+      position: absolute;
+      right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 230px;
+      height: 230px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .badge-wrap svg {
+      width: 100%;
+      height: 100%;
+      animation: badge-spin 22s linear infinite;
+      filter: drop-shadow(0 0 28px rgba(255,85,0,.45));
+    }
+
+    @keyframes badge-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 1100px) {
+      .badge-wrap { display: none; }
+    }
+
+    /* ───────────────── HERO ───────────────── */
+    #hero {
+      min-height: 100vh;
+      padding: 140px 48px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      right: -120px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,85,0,.25) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-glow-2 {
+      position: absolute;
+      left: -200px;
+      bottom: 0;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,85,0,.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,85,0,.1);
+      border: 1px solid rgba(255,85,0,.28);
+      color: var(--orange);
+      padding: 7px 16px;
+      border-radius: 50px;
+      font-family: 'Sora', sans-serif;
+      font-size: .7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      margin-bottom: 28px;
+      width: fit-content;
+    }
+
+    .hero-label::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(1.4); }
+    }
+
+    .hero-title {
+      font-family: 'Benzin', 'Sora', sans-serif;
+      font-size: clamp(3.8rem, 10vw, 10rem);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -2px;
+      max-width: 950px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title .orange { color: var(--orange); }
+
+    .hero-sub {
+      margin-top: 32px;
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(244,244,244,.5);
+      max-width: 440px;
+      line-height: 1.75;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-actions {
+      margin-top: 48px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--black);
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(255,85,0,.4);
+    }
+
+    .btn-ghost {
+      border: 1.5px solid rgba(244,244,244,.18);
+      color: var(--off-white);
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 600;
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* ───────────────── MARQUEE ───────────────── */
+    .marquee-bar {
+      background: var(--orange);
+      padding: 15px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      animation: slide 24s linear infinite;
+    }
+
+    .marquee-track .item {
+      color: var(--black);
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      padding: 0 24px;
+    }
+
+    .marquee-track .sep {
+      color: rgba(12,12,12,.35);
+      font-size: .6rem;
+    }
+
+    @keyframes slide {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ───────────────── SECTION BASE ───────────────── */
+    section { padding: 110px 48px; }
+
+    .tag {
+      display: inline-block;
+      font-family: 'Sora', sans-serif;
+      font-size: .68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3.5px;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+    .tag::before { content: '/ '; }
+    .tag::after  { content: ' /'; }
+
+    .section-title {
+      font-family: 'Benzin', 'Sora', sans-serif;
+      font-size: clamp(2.4rem, 5.5vw, 5rem);
+      font-weight: 800;
+      line-height: .97;
+      letter-spacing: -1px;
+      margin-bottom: 48px;
+    }
+
+    /* ───────────────── QUEM SOMOS ───────────────── */
+    #quem-somos { background: var(--black); }
+
+    .about-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: rgba(244,244,244,.62);
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+    .about-text p strong {
+      color: var(--off-white);
+      font-weight: 600;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .stat {
+      background: rgba(255,85,0,.07);
+      border: 1px solid rgba(255,85,0,.18);
+      border-radius: 20px;
+      padding: 32px 24px;
+      transition: background .3s, border-color .3s;
+    }
+    .stat:hover { background: rgba(255,85,0,.13); border-color: rgba(255,85,0,.4); }
+
+    .stat .num {
+      font-family: 'Benzin', 'Sora', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    .stat .lbl {
+      font-size: .8rem;
+      font-weight: 400;
+      color: rgba(244,244,244,.45);
+      margin-top: 10px;
+      line-height: 1.45;
+      letter-spacing: .3px;
+    }
+
+    /* ───────────────── SERVIÇOS ───────────────── */
+    #servicos { background: var(--black-2); }
+
+    #servicos .inner { max-width: 1200px; margin: 0 auto; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 2px;
+    }
+
+    .svc {
+      background: var(--black);
+      padding: 44px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background .3s;
+    }
+    .svc::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s;
+    }
+    .svc:hover { background: #161616; }
+    .svc:hover::after { transform: scaleX(1); }
+
+    .svc-icon {
+      width: 52px; height: 52px;
+      background: var(--orange);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 28px;
+    }
+
+    .svc-name {
+      font-family: 'Benzin', 'Sora', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -.3px;
+      margin-bottom: 10px;
+    }
+    .svc-desc {
+      font-size: .875rem;
+      font-weight: 400;
+      color: rgba(244,244,244,.42);
+      line-height: 1.7;
+    }
+
+    /* ───────────────── PORTFÓLIO ───────────────── */
+    #portfolio { background: var(--black); }
+
+    #portfolio .inner { max-width: 1200px; margin: 0 auto; }
+
+    .port-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .port-item {
+      aspect-ratio: 9/16;
+      background: var(--black-3);
+      border-radius: 20px;
+      border: 1px dashed rgba(255,85,0,.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: rgba(244,244,244,.25);
+      font-size: .82rem;
+      text-align: center;
+      padding: 20px;
+      transition: border-color .3s, color .3s;
+    }
+    .port-item:hover { border-color: var(--orange); color: rgba(244,244,244,.55); }
+    .port-item .port-icon { font-size: 2rem; opacity: .4; }
+
+    /* ───────────────── ORÇAMENTO ───────────────── */
+    #orcamento {
+      background: var(--orange);
+      text-align: center;
+    }
+
+    #orcamento .tag  { color: rgba(12,12,12,.5); }
+    #orcamento .section-title { color: var(--black); margin-bottom: 20px; }
+
+    #orcamento .sub {
+      font-size: .95rem;
+      font-weight: 400;
+      color: rgba(12,12,12,.6);
+      max-width: 420px;
+      margin: 0 auto 48px;
+      line-height: 1.75;
+    }
+
+    .btn-dark {
+      background: var(--black);
+      color: var(--off-white);
+      padding: 18px 52px;
+      border-radius: 50px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-dark:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(12,12,12,.35);
+    }
+
+    .contacts {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 52px;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      color: var(--black);
+      font-family: 'Sora', sans-serif;
+      font-weight: 500;
+      font-size: .78rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      opacity: .55;
+      transition: opacity .2s;
+    }
+    .contact-link:hover { opacity: 1; }
+
+    /* ───────────────── FOOTER ───────────────── */
+    footer {
+      background: var(--black);
+      padding: 36px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(244,244,244,.07);
+    }
+
+    footer p {
+      font-size: .75rem;
+      font-weight: 400;
+      color: rgba(244,244,244,.22);
+      letter-spacing: .3px;
+    }
+
+    /* ───────────────── RESPONSIVE ───────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      section { padding: 80px 24px; }
+      #hero { padding: 120px 24px 80px; }
+      .hero-title { letter-spacing: -2px; }
+      .about-wrap { grid-template-columns: 1fr; gap: 52px; }
+      .port-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; gap: 14px; text-align: center; }
+    }
+
+    @media (max-width: 520px) {
+      .port-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="logo">Modernizze<span>.</span></a>
+    <a href="#orcamento" class="nav-cta">Solicitar Orçamento</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow-2"></div>
+
+    <div class="hero-label">Produtora Audiovisual</div>
+
+    <h1 class="hero-title">
+      Modernizze<br>
+      <span class="orange">o agora.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Produtora de conteúdo especializada em vídeos mobile e real time para redes sociais e eventos.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#orcamento" class="btn-primary">Solicitar Orçamento</a>
+      <a href="#portfolio"  class="btn-ghost">Ver Portfólio</a>
+    </div>
+
+    <!-- Spinning stamp badge -->
+    <div class="badge-wrap" aria-hidden="true">
+      <svg id="stamp-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <path id="text-ring"
+            d="M100,100 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0"/>
+        </defs>
+        <!-- Serrated badge background (path set by JS) -->
+        <path id="badge-bg" fill="#ff5500"/>
+        <!-- Circular text -->
+        <text font-size="10" font-weight="900" fill="white" letter-spacing="5.2"
+              font-family="Inter,sans-serif">
+          <textPath href="#text-ring">MODERNIZZE O AGORA · MODERNIZZE O AGORA · </textPath>
+        </text>
+        <!-- Center icon (SVG approximation of the logo mark) -->
+        <g transform="translate(100,100)" fill="none" stroke="white"
+           stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Square/frame body -->
+          <polyline points="-14,14 -14,-8 2,-18 14,-6 14,14 -14,14"/>
+          <!-- Arrow spike up-left -->
+          <polyline points="-14,-8 -22,-22 -6,-16"/>
+          <!-- Inner triangle -->
+          <polyline points="-2,-2 6,6 6,-6 -2,-2"/>
+          <!-- Diamond extending right -->
+          <polyline points="14,2 24,-4 18,10 8,16"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-bar" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="item">Produção de Vídeos</span><span class="sep">●</span>
+      <span class="item">Cobertura de Eventos</span><span class="sep">●</span>
+      <span class="item">Real Time</span><span class="sep">●</span>
+      <span class="item">Storymaker</span><span class="sep">●</span>
+      <span class="item">Fotografia</span><span class="sep">●</span>
+      <span class="item">Direção Criativa</span><span class="sep">●</span>
+      <span class="item">Marketing de Conteúdo</span><span class="sep">●</span>
+      <!-- duplicate for seamless loop -->
+      <span class="item">Produção de Vídeos</span><span class="sep">●</span>
+      <span class="item">Cobertura de Eventos</span><span class="sep">●</span>
+      <span class="item">Real Time</span><span class="sep">●</span>
+      <span class="item">Storymaker</span><span class="sep">●</span>
+      <span class="item">Fotografia</span><span class="sep">●</span>
+      <span class="item">Direção Criativa</span><span class="sep">●</span>
+      <span class="item">Marketing de Conteúdo</span><span class="sep">●</span>
+    </div>
+  </div>
+
+  <!-- QUEM SOMOS -->
+  <section id="quem-somos">
+    <div class="about-wrap">
+      <div>
+        <span class="tag">Quem Somos</span>
+        <h2 class="section-title">Captamos histórias enquanto elas acontecem.</h2>
+        <div class="about-text">
+          <p>Somos uma produtora de conteúdo especializada em <strong>vídeos mobile e real time</strong> para redes sociais e eventos.</p>
+          <p>Transformamos momentos em <strong>conteúdo estratégico</strong> — desde vídeos institucionais dinâmicos até coberturas completas de eventos, ativações de marca, bastidores e registros estratégicos para perfis profissionais.</p>
+          <p>Tudo com equipamentos mobile, direção criativa e uma equipe que acredita que <strong>o agora é o melhor lugar para construir presença digital.</strong></p>
+        </div>
+      </div>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="num">100+</div>
+          <div class="lbl">Projetos entregues</div>
+        </div>
+        <div class="stat">
+          <div class="num">7+</div>
+          <div class="lbl">Serviços oferecidos</div>
+        </div>
+        <div class="stat">
+          <div class="num">24h</div>
+          <div class="lbl">Entrega em real time</div>
+        </div>
+        <div class="stat">
+          <div class="num">∞</div>
+          <div class="lbl">Histórias para contar</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="inner">
+      <span class="tag">Serviços</span>
+      <h2 class="section-title">O que a gente faz.</h2>
+      <div class="services-grid">
+
+        <div class="svc">
+          <div class="svc-icon">🎬</div>
+          <div class="svc-name">Produção de Vídeos</div>
+          <div class="svc-desc">Vídeos institucionais, publicitários e de marca com direção criativa e qualidade mobile.</div>
+        </div>
+
+        <div class="svc">
+          <div class="svc-icon">📡</div>
+          <div class="svc-name">Cobertura de Eventos</div>
+          <div class="svc-desc">Captação completa de eventos, ativações e lançamentos do início ao fim.</div>
+        </div>
+
+        <div class="svc">
+          <div class="svc-icon">📱</div>
+          <div class="svc-name">Storymaker</div>
+          <div class="svc-desc">Criação e edição de stories dinâmicos e envolventes para o seu perfil.</div>
+        </div>
+
+        <div class="svc">
+          <div class="svc-icon">⚡</div>
+          <div class="svc-name">Real Time</div>
+          <div class="svc-desc">Conteúdo produzido e publicado em tempo real durante o seu evento.</div>
+        </div>
+
+        <div class="svc">
+          <div class="svc-icon">📸</div>
+          <div class="svc-name">Fotografia</div>
+          <div class="svc-desc">Registros fotográficos estratégicos para redes sociais e arquivos de marca.</div>
+        </div>
+
+        <div class="svc">
+          <div class="svc-icon">🎯</div>
+          <div class="svc-name">Direção Criativa</div>
+          <div class="svc-desc">Conceito, narrativa e identidade visual para toda a sua produção de conteúdo.</div>
+        </div>
+
+        <div class="svc">
+          <div class="svc-icon">📈</div>
+          <div class="svc-name">Marketing de Conteúdo</div>
+          <div class="svc-desc">Estratégia e produção para construir presença digital consistente e de impacto.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFÓLIO -->
+  <section id="portfolio">
+    <div class="inner">
+      <span class="tag">Portfólio</span>
+      <h2 class="section-title">Nossos trabalhos.</h2>
+      <div class="port-grid">
+        <div class="port-item"><div class="port-icon">▶</div>Em breve</div>
+        <div class="port-item"><div class="port-icon">▶</div>Em breve</div>
+        <div class="port-item"><div class="port-icon">▶</div>Em breve</div>
+        <div class="port-item"><div class="port-icon">▶</div>Em breve</div>
+        <div class="port-item"><div class="port-icon">▶</div>Em breve</div>
+        <div class="port-item"><div class="port-icon">▶</div>Em breve</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORÇAMENTO -->
+  <section id="orcamento">
+    <span class="tag">Contato</span>
+    <h2 class="section-title">Vamos criar juntos?</h2>
+    <p class="sub">Solicite um orçamento e transformamos o seu agora em conteúdo de impacto.</p>
+    <a href="https://wa.me/5581999874777" target="_blank" rel="noopener" class="btn-dark">Falar no WhatsApp</a>
+    <div class="contacts">
+      <a href="https://instagram.com/modernizze" target="_blank" rel="noopener" class="contact-link">@modernizze</a>
+      <a href="mailto:modernizzerec@gmail.com" class="contact-link">modernizzerec@gmail.com</a>
+      <a href="https://wa.me/5581999874777" target="_blank" rel="noopener" class="contact-link">(81) 99987-4777</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#hero" class="logo">Modernizze<span>.</span></a>
+    <p>© 2025 Modernizze. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Generate serrated/stamp edge for the circular badge
+    (function () {
+      function serratedPath(cx, cy, outerR, innerR, teeth) {
+        let d = '';
+        for (let i = 0; i < teeth * 2; i++) {
+          const angle = (i * Math.PI / teeth) - Math.PI / 2;
+          const r = i % 2 === 0 ? outerR : innerR;
+          const x = (cx + r * Math.cos(angle)).toFixed(2);
+          const y = (cy + r * Math.sin(angle)).toFixed(2);
+          d += (i === 0 ? 'M' : 'L') + x + ',' + y;
+        }
+        return d + 'Z';
+      }
+      const el = document.getElementById('badge-bg');
+      if (el) el.setAttribute('d', serratedPath(100, 100, 96, 84, 24));
+    })();
+  </script>
+</body>
+</html>
